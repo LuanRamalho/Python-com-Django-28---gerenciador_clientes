@@ -13,7 +13,7 @@
         }
         .container {
             max-width: 800px;
-            margin: 0 auto;
+            margin: 20px auto;
             padding: 20px;
             background-color: #ffffff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -40,6 +40,7 @@
             border: none;
             border-radius: 4px;
             cursor: pointer;
+            margin-top: 10px;
         }
         button:hover {
             background-color: #0056b3;
@@ -51,13 +52,30 @@
         a:hover {
             text-decoration: underline;
         }
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
-        li {
-            padding: 10px 0;
+        .cliente {
+            padding: 15px;
             border-bottom: 1px solid #ced4da;
+        }
+        .cliente p {
+            margin: 5px 0;
+        }
+        .actions {
+            margin-top: 10px;
+        }
+        .actions a {
+            display: inline-block;
+            margin-right: 10px;
+            padding: 5px 10px;
+            background-color: #28a745;
+            color: #ffffff;
+            border-radius: 4px;
+            text-align: center;
+        }
+        .actions a.excluir {
+            background-color: #dc3545;
+        }
+        .actions a:hover {
+            opacity: 0.8;
         }
     </style>
 </head>
@@ -65,16 +83,24 @@
     <div class="container">
         <h1>Lista de Clientes</h1>
         <form method="GET">
-            <input type="text" name="q" placeholder="Buscar Cliente">
+            <input type="text" name="q" placeholder="Buscar Cliente">  
             <button type="submit">Buscar</button>
         </form>
         <a href="{% url 'adicionar_cliente' %}">Adicionar Cliente</a>
-        <ul>
+        <div>
             {% for cliente in clientes %}
-                <li>{{ cliente.nome }} - {{ cliente.email }} - <a href="{% url 'editar_cliente' cliente.id %}">Editar</a> - 
-                    <a href="{% url 'excluir_cliente' cliente.id %}">Excluir</a></li>
+                <div class="cliente">
+                    <p><strong>Nome:</strong> {{ cliente.nome }}</p>
+                    <p><strong>Email:</strong> {{ cliente.email }}</p>
+                    <p><strong>Telefone:</strong> {{ cliente.telefone }}</p>
+                    <p><strong>Endereço:</strong> {{ cliente.endereco }}</p>
+                    <div class="actions">
+                        <a href="{% url 'editar_cliente' cliente.id %}">Editar</a>
+                        <a href="{% url 'excluir_cliente' cliente.id %}" class="excluir">Excluir</a>
+                    </div>
+                </div>
             {% endfor %}
-        </ul>
+        </div>
     </div>
 </body>
 </html>
